@@ -11,4 +11,11 @@
 |
 */
 
-Route::apiResource('/users', "Users");
+
+Route::post('register', 'AuthController@register');
+Route::post('login', 'AuthController@login');
+
+Route::middleware('auth:api')->group(function () {
+    Route::apiResource('/users', "Users");
+    Route::get('user/{userId}/detail', 'UserController@show');
+});
