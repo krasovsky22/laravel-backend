@@ -9,8 +9,7 @@ use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
-
-    /**
+    /**att
      * The attributes that are mass assignable.
      *
      * @var array
@@ -25,7 +24,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'provider_name', 'provider_id', 'password', 'remember_token', 'provider_token',
     ];
 
     /**

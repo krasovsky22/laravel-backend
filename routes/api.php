@@ -14,8 +14,13 @@
 
 Route::post('register', 'AuthController@register');
 Route::post('login', 'AuthController@login');
+Route::get('redirect/{driver}', 'AuthController@redirectToProvider')
+    ->name('login.external')
+    ->where('driver', implode('|', config('auth.socialite.drivers')));
+Route::get('{driver}/callback', 'AuthController@handleProviderCallback')
+    ->where('driver', implode('|', config('auth.socialite.drivers')));
 
 Route::middleware('auth:api')->group(function () {
     Route::apiResource('/users', "Users");
-    Route::get('user/{userId}/detail', 'UserController@show');
+    Route::get('/user', "Users@current");
 });
