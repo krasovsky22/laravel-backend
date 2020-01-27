@@ -23,4 +23,7 @@ Route::get('{driver}/callback', 'AuthController@handleProviderCallback')
 Route::middleware('auth:api')->group(function () {
     Route::apiResource('/users', "Users");
     Route::get('/user', "Users@current");
+
+    //upload profile image
+    Route::post('/character/character-image-upload', 'CharacterController@updateImage');
 });
