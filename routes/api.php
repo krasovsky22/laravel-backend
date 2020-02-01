@@ -25,5 +25,6 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/user', "Users@current");
 
     //upload profile image
-    Route::post('/character/character-image-upload', 'CharacterController@updateImage');
+    Route::apiResource('/characters', "Characters");
+    Route::post('/character/character-image-upload', 'Characters@updateImage');
 });

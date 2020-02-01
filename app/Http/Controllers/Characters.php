@@ -2,13 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Character;
 use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-
-class CharacterController extends Controller
+class Characters extends Controller
 {
     use UploadTrait;
+
+    public function index()
+    {
+        $currentUser = Auth::user();
+
+        return new \App\Http\Resources\Characters($currentUser->characters);
+    }
+
+    public function show(Character $character)
+    {
+        $currentUser = Auth::user();
+        if ($currentUser->is($character->user)) {
+            return new \App\Http\Resources\Character($character);
+        }
+
+        return response()->json(['success' => false, 'message' => 'unauthorized'], 400);
+    }
 
     public function updateImage(Request $request)
     {
